@@ -1,0 +1,38 @@
+---
+- name: Create Instance
+  hosts: all
+  vars:
+    kolla_config_path: /etc/kolla
+    instance_name: test
+    image_name: jammy-server-cloudimg-amd64
+    instance_key: mykey
+    instance_flavor: m1.small
+
+  environment:
+        OS_CLIENT_CONFIG_FILE: "{{ kolla_config_path }}/clouds.yaml"
+        OS_CLOUD: "kolla-admin"
+
+  tasks:
+
+    - name: Install openstack SDK
+      ansible.builtin.pip:
+        name: openstacksdk>=1.0.0
+    - name: Check for clouds.yaml
+      ansible.builtin.stat:
+        path: "{{ kolla_config_path }}/clouds.yaml"
+      register: clouds_yaml
+
+    - name: Fail if clouds.yaml is missing
+      ansible.builtin.fail:
+        msg: "{{ kolla_config_path }}/clouds.yaml is missing. Did your deploy finish successfully?"
+      when: not clouds_yaml.stat.exists
+
+
+    - name: Create a project
+      openstack.cloud.project:
+        description: kubernetes project
+        is_enabled: True
+        name: k8s
+        extra_specs:
+          internal_alias: k8s
+        state: present
