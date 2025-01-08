@@ -42,6 +42,7 @@
         network: "{{ project_name }}-subnet"
         ip_version: "{{ ip_version }}"
         cidr: "{{ demo_net_cidr }}"
-        gateway: "{{ demo_net_gateway }}"
+        gateway_ip: "{{ demo_net_gateway }}"
         dns_nameservers:
           - "{{ demo_net_dns }}"
+
