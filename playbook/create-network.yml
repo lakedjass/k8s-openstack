@@ -1,0 +1,46 @@
+---
+- name: Create Instance
+  hosts: all
+  vars:
+    kolla_config_path: /etc/kolla
+    instance_name: test
+    project_name: k8s
+    demo_net_cidr: '10.0.0.0/24'
+    demo_net_gateway: '10.0.0.1'
+    demo_net_dns: '8.8.8.8'
+
+  environment:
+        OS_CLIENT_CONFIG_FILE: "{{ kolla_config_path }}/clouds.yaml"
+        OS_CLOUD: "kolla-admin"
+
+  tasks:
+
+    - name: Install openstack SDK
+      ansible.builtin.pip:
+        name: openstacksdk>=1.0.0
+    - name: Check for clouds.yaml
+      ansible.builtin.stat:
+        path: "{{ kolla_config_path }}/clouds.yaml"
+      register: clouds_yaml
+
+    - name: Fail if clouds.yaml is missing
+      ansible.builtin.fail:
+        msg: "{{ kolla_config_path }}/clouds.yaml is missing. Did your deploy finish successfully?"
+      when: not clouds_yaml.stat.exists
+
+
+
+    - name: "Create {{ project_name }}-net network"
+      openstack.cloud.network:
+        name: "{{ project_name }}-net"
+        state: present
+
+    - name: "Create {{ project_name }}-subnet sunetwork"
+      openstack.cloud.subnet:
+        name: "{{ project_name }}-subnet"
+        network: "{{ project_name }}-subnet"
+        ip_version: "{{ ip_version }}"
+        cidr: "{{ demo_net_cidr }}"
+        gateway: "{{ demo_net_gateway }}"
+        dns_nameservers:
+          - "{{ demo_net_dns }}"
