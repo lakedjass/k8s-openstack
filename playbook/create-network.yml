@@ -14,6 +14,7 @@
         OS_CLIENT_CONFIG_FILE: "{{ kolla_config_path }}/clouds.yaml"
         OS_CLOUD: "kolla-admin"
         OS_PROJECT_NAME: "k8s"
+        OS_PROJECT_ID: "c6d3d132001c4a678e9a2bf45e9dd9b3"
 
   tasks:
 
