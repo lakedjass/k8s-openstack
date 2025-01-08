@@ -4,6 +4,7 @@
   vars:
     kolla_config_path: /etc/kolla
     instance_name: test
+    project_name: k8s
     image_name: jammy-server-cloudimg-amd64
     instance_key: mykey
     instance_flavor: m1.small
@@ -32,7 +33,13 @@
       openstack.cloud.project:
         description: kubernetes project
         is_enabled: True
-        name: k8s
+        name:  "{{ project_name }}"
         extra_specs:
-          internal_alias: k8s
+          internal_alias:  "{{ project_name }}"
         state: present
+
+    - name: Grant an admin role on the user admin in the project project1
+      openstack.cloud.role_assignment:
+        user: admin
+        role: admin
+        project:  "{{ project_name }}"
