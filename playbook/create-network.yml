@@ -13,6 +13,7 @@
   environment:
         OS_CLIENT_CONFIG_FILE: "{{ kolla_config_path }}/clouds.yaml"
         OS_CLOUD: "kolla-admin"
+        OS_PROJECT_NAME: "k8s"
 
   tasks:
 
@@ -38,7 +39,6 @@
 
     - name: "Create {{ project_name }}-subnet sunetwork"
       openstack.cloud.subnet:
-        project: "{{ project_name }}"
         name: "{{ project_name }}-subnet"
         network: "{{ project_name }}-net"
         ip_version: "{{ ip_version }}"
