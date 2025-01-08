@@ -8,6 +8,7 @@
     demo_net_cidr: '10.0.0.0/24'
     demo_net_gateway: '10.0.0.1'
     demo_net_dns: '8.8.8.8'
+    ip_version: 4
 
   environment:
         OS_CLIENT_CONFIG_FILE: "{{ kolla_config_path }}/clouds.yaml"
