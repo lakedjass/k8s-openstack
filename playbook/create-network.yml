@@ -39,7 +39,7 @@
     - name: "Create {{ project_name }}-subnet sunetwork"
       openstack.cloud.subnet:
         name: "{{ project_name }}-subnet"
-        network: "{{ project_name }}-subnet"
+        network: "{{ project_name }}-net"
         ip_version: "{{ ip_version }}"
         cidr: "{{ demo_net_cidr }}"
         gateway_ip: "{{ demo_net_gateway }}"
