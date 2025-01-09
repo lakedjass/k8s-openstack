@@ -11,7 +11,7 @@
     instance_flavor: m1.small
 
   environment:
-        OS_CLIENT_CONFIG_FILE: "{{ kolla_config_path }}/clouds.yaml"
+        OS_AUTH_URL: "http://51.159.106.92:5000"
         OS_CLOUD: "kolla-admin"
         OS_PROJECT_NAME: "k8s"
         OS_PROJECT_ID: "c6d3d132001c4a678e9a2bf45e9dd9b3"
