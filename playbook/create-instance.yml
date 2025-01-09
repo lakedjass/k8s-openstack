@@ -13,6 +13,8 @@
   environment:
         OS_AUTH_URL: "http://51.159.106.92:5000"
         OS_PROJECT_NAME: "k8s"
+        OS_USER_DOMAIN_NAME: "Default"
+        OS_PROJECT_DOMAIN_ID: "default"
         OS_USERNAME: "admin"
         OS_PROJECT_ID: "c6d3d132001c4a678e9a2bf45e9dd9b3"
         OS_PASSWORD: "QKewu1IumKgvQL6OeuTPY6w5tH4esuO7qbts9h75"
