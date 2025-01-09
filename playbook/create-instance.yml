@@ -31,22 +31,23 @@
 
     - name:  "Create a new instance {{ instance_name }}"
       openstack.cloud.server:
-          state: present
-          name:  "{{ instance_name }}"
-          image: "{{ image_name }}"
-          key_name: "{{ instance_key }}"
-          timeout: 200
-          flavor: "{{ instance_flavor }}"
-          nics:
-            - net-name: demo-net
-          auto_ip: false
-          meta:
-            hostname: "{{ instance_name }}"
-            group: instance
-          userdata: |
-            #cloud-config
-            password: ubuntu
-            ssh_pwauth: True
-            chpasswd: { expire: False }
-            package_update: true
-            package_upgrade: true
+        project: "{{ project_name }}"
+        state: present
+        name:  "{{ instance_name }}"
+        image: "{{ image_name }}"
+        key_name: "{{ instance_key }}"
+        timeout: 200
+        flavor: "{{ instance_flavor }}"
+        nics:
+          - net-name: demo-net
+        auto_ip: false
+        meta:
+          hostname: "{{ instance_name }}"
+          group: instance
+        userdata: |
+          #cloud-config
+          password: ubuntu
+          ssh_pwauth: True
+          chpasswd: { expire: False }
+          package_update: true
+          package_upgrade: true
