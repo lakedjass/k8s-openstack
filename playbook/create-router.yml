@@ -37,4 +37,4 @@
         state: present
         interfaces:
           - "{{ project_name }}-subnet"
-        network: "public1"
+        network: "3e14aa46-8d14-4b53-b4dd-263fdabc6cc2"
