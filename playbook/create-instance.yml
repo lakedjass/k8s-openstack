@@ -43,7 +43,7 @@
         timeout: 200
         flavor: "{{ instance_flavor }}"
         nics:
-          - net-name: demo-net
+          - net-name: "{{ project_name }}-net"
         auto_ip: false
         meta:
           hostname: "{{ instance_name }}"
@@ -55,3 +55,28 @@
           chpasswd: { expire: False }
           package_update: true
           package_upgrade: true
+
+    - name:  "Create a new instance master-{{ item }}"
+      openstack.cloud.server:
+        state: present
+        name:  "master-{{ item }}"
+        image: "{{ image_name }}"
+        key_name: "{{ instance_key }}"
+        timeout: 200
+        flavor: "{{ instance_flavor }}"
+        nics:
+          - net-name: "{{ project_name }}-net"
+        auto_ip: false
+        meta:
+          hostname: "{{ instance_name }}"
+          group: instance
+        userdata: |
+          #cloud-config
+          password: ubuntu
+          ssh_pwauth: True
+          chpasswd: { expire: False }
+          package_update: true
+          package_upgrade: true
+        loop: "{{ [1, 2, 3] | flatten(1) }}"
+
+
