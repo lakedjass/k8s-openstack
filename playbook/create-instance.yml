@@ -47,6 +47,8 @@
         nics:
           - net-name: "{{ project_name }}-net"
         auto_ip: false
+        security_groups:
+        - default
         meta:
           hostname: "{{ instance_name }}"
           group: instance
@@ -69,6 +71,8 @@
         nics:
           - net-name: "{{ project_name }}-net"
         auto_ip: false
+        security_groups:
+        - default
         meta:
           hostname: "{{ instance_name }}"
           group: instance
@@ -93,6 +97,8 @@
         nics:
           - net-name: "{{ project_name }}-net"
         auto_ip: false
+        security_groups:
+        - default
         meta:
           hostname: "{{ instance_name }}"
           group: instance
