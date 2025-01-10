@@ -11,6 +11,7 @@
     instance_flavor_bastion: m1.small
     instance_flavor_master: m1.small
     instance_flavor_worker: m1.large
+    security_groups_id: 4c344745-6b55-415e-b95d-668b63c84a4c
 
   environment:
         OS_AUTH_URL: "http://51.159.106.92:5000"
@@ -48,7 +49,7 @@
           - net-name: "{{ project_name }}-net"
         auto_ip: false
         security_groups:
-        - default
+        - "{{ security_groups_id }}"
         meta:
           hostname: "{{ instance_name }}"
           group: instance
@@ -72,7 +73,7 @@
           - net-name: "{{ project_name }}-net"
         auto_ip: false
         security_groups:
-        - default
+        - "{{ security_groups_id }}"
         meta:
           hostname: "{{ instance_name }}"
           group: instance
@@ -98,7 +99,7 @@
           - net-name: "{{ project_name }}-net"
         auto_ip: false
         security_groups:
-        - default
+        - "{{ security_groups_id }}"
         meta:
           hostname: "{{ instance_name }}"
           group: instance
