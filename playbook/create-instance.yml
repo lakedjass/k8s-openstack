@@ -10,7 +10,7 @@
     instance_key: mykey
     instance_flavor_bastion: m1.small
     instance_flavor_master: m1.small
-    instance_flavor_worker: m1.small
+    instance_flavor_worker: m1.large
 
   environment:
         OS_AUTH_URL: "http://51.159.106.92:5000"
@@ -58,7 +58,7 @@
           package_update: true
           package_upgrade: true
 
-    - name:  "Create a new instance master-{{ item }}"
+    - name:  "Create a new instance master"
       openstack.cloud.server:
         state: present
         name:  "master-{{ item }}"
@@ -80,6 +80,31 @@
           package_update: true
           package_upgrade: true
       loop: "{{ [1, 2, 3] | flatten(1) }}"
+
+
+    - name:  "Create a new instance worker"
+      openstack.cloud.server:
+        state: present
+        name:  "worker-{{ item }}"
+        image: "{{ image_name }}"
+        key_name: "{{ instance_key }}"
+        timeout: 200
+        flavor: "{{ instance_flavor_worker }}"
+        nics:
+          - net-name: "{{ project_name }}-net"
+        auto_ip: false
+        meta:
+          hostname: "{{ instance_name }}"
+          group: instance
+        userdata: |
+          #cloud-config
+          password: ubuntu
+          ssh_pwauth: True
+          chpasswd: { expire: False }
+          package_update: true
+          package_upgrade: true
+      loop: "{{ [1, 2] | flatten(1) }}"
+
 
 
 
