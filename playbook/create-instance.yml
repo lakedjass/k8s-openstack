@@ -8,9 +8,9 @@
     instance_name: bastion
     image_name: jammy-server-cloudimg-amd64
     instance_key: mykey
-    instance_flavor-bastion: m1.small
-    instance_flavor-master: m1.small
-    instance_flavor-worker: m1.small
+    instance_flavor_bastion: m1.small
+    instance_flavor_master: m1.small
+    instance_flavor_worker: m1.small
 
   environment:
         OS_AUTH_URL: "http://51.159.106.92:5000"
@@ -43,7 +43,7 @@
         image: "{{ image_name }}"
         key_name: "{{ instance_key }}"
         timeout: 200
-        flavor: "{{ instance_flavor-bastion }}"
+        flavor: "{{ instance_flavor_bastion }}"
         nics:
           - net-name: "{{ project_name }}-net"
         auto_ip: false
@@ -65,7 +65,7 @@
         image: "{{ image_name }}"
         key_name: "{{ instance_key }}"
         timeout: 200
-        flavor: "{{ instance_flavor-master }}"
+        flavor: "{{ instance_flavor_master }}"
         nics:
           - net-name: "{{ project_name }}-net"
         auto_ip: false
