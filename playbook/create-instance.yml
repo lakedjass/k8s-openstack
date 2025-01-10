@@ -79,6 +79,9 @@
           chpasswd: { expire: False }
           package_update: true
           package_upgrade: true
-        loop: "{{ [1, 2, 3] | flatten(1) }}"
+        loop:
+          - 1
+          - 2
+          - 3
 
 
